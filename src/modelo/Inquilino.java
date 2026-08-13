@@ -106,5 +106,8 @@ public class Inquilino {
         this.ocupacion = ocupacion;
     }
     
-    
+    @Override
+    public String toString(){
+        return nomInqui;
+    }
 }

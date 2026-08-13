@@ -4,15 +4,18 @@
  */
 package vista;
 
+import java.util.ArrayList;
+import modelo.Inquilino;
+import modelo.Propietario;
+
 /**
  *
  * @author graci
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmPrincipal
-     */
+    ArrayList<Propietario> listaProp = new ArrayList<>();
+    ArrayList<Inquilino> listaInqui = new ArrayList<>();
     public FrmPrincipal() {
         initComponents();
     }
@@ -41,6 +44,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setTitle("Sistema de alquileres GuanaRenta");
 
         btnPropietarios.setText("Propietarios");
+        btnPropietarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPropietariosActionPerformed(evt);
+            }
+        });
 
         btnViviendas.setText("Viviendas");
 
@@ -104,6 +112,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropietariosActionPerformed
+        DlgMainPropietarios winProp = new DlgMainPropietarios(this, true, listaProp);
+        winProp.setVisible(true);
+        this.listaProp = winProp.getListaProp();
+    }//GEN-LAST:event_btnPropietariosActionPerformed
 
     /**
      * @param args the command line arguments
