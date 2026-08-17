@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author graci
  */
 public class Inquilino {
-    private int cedInqui;
+    private String cedInqui;
     private String nomInqui;
     private String genero;
     private LocalDate fechNac;
@@ -19,19 +19,19 @@ public class Inquilino {
     private String telefono;
     private String email;
     private String ocupacion;
-    
+
     public Inquilino() {
-        this.cedInqui = 0;
+        this.cedInqui = "";
         this.nomInqui = "";
         this.genero = "";
-        this.fechNac = LocalDate.now();
+        this.fechNac = null;
         this.direccion = "";
         this.telefono = "";
         this.email = "";
         this.ocupacion = "";
     }
-
-    public Inquilino(int cedInqui, String nomInqui, String genero, LocalDate fechNac, String direccion, String telefono, String email, String ocupacion) {
+    
+    public Inquilino(String cedInqui, String nomInqui, String genero, LocalDate fechNac, String direccion, String telefono, String email, String ocupacion) {
         this.cedInqui = cedInqui;
         this.nomInqui = nomInqui;
         this.genero = genero;
@@ -42,11 +42,11 @@ public class Inquilino {
         this.ocupacion = ocupacion;
     }
 
-    public int getCedInqui() {
+    public String getCedInqui() {
         return cedInqui;
     }
 
-    public void setCedInqui(int cedInqui) {
+    public void setCedInqui(String cedInqui) {
         this.cedInqui = cedInqui;
     }
 
@@ -81,11 +81,11 @@ public class Inquilino {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
     public String getTelefono() {
         return telefono;
     }
-
+    
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
@@ -101,13 +101,13 @@ public class Inquilino {
     public String getOcupacion() {
         return ocupacion;
     }
-
+    
     public void setOcupacion(String ocupacion) {
         this.ocupacion = ocupacion;
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         return nomInqui;
     }
 }

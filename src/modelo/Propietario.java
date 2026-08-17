@@ -9,40 +9,36 @@ package modelo;
  * @author graci
  */
 public class Propietario {
-    private int cedPropiet;
+    private String cedPropiet;
     private String nomPropiet;
     private String genero;
     private String direccion;
     private String telefono;
     private String email;
-    private String ocupacion;
 
-    
-        public Propietario() {
-        this.cedPropiet = 0;
+    public Propietario() {
+        this.cedPropiet = "";
         this.nomPropiet = "";
         this.genero = "";
         this.direccion = "";
         this.telefono = "";
         this.email = "";
-        this.ocupacion = "";
     }
-        
-        public Propietario(int cedPropiet, String nomPropiet, String genero, String direccion, String telefono, String email, String ocupacion) {
+
+    public Propietario(String cedPropiet, String nomPropiet, String genero, String direccion, String telefono, String email) {
         this.cedPropiet = cedPropiet;
         this.nomPropiet = nomPropiet;
         this.genero = genero;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
-        this.ocupacion = ocupacion;
     }
 
-    public int getCedPropiet() {
+    public String getCedPropiet() {
         return cedPropiet;
     }
 
-    public void setCedPropiet(int cedPropiet) {
+    public void setCedPropiet(String cedPropiet) {
         this.cedPropiet = cedPropiet;
     }
 
@@ -69,34 +65,25 @@ public class Propietario {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
     public String getTelefono() {
         return telefono;
     }
-
+    
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getOcupacion() {
-        return ocupacion;
-    }
-
-    public void setOcupacion(String ocupacion) {
-        this.ocupacion = ocupacion;
-    }
     
     @Override
-    public String toString(){
+    public String toString() {
         return nomPropiet;
     }
-    
 }
