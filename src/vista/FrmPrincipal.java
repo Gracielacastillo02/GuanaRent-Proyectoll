@@ -53,6 +53,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnViviendas.setText("Viviendas");
 
         btnInquilinos.setText("Inquilinos");
+        btnInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInquilinosActionPerformed(evt);
+            }
+        });
 
         btnAlquileres.setText("Alquileres");
 
@@ -118,6 +123,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         winProp.setVisible(true);
         this.listaProp = winProp.getListaProp();
     }//GEN-LAST:event_btnPropietariosActionPerformed
+
+    private void btnInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinosActionPerformed
+        DlgMainInquilinos winInqui = new DlgMainInquilinos(this, true, listaInqui);
+        winInqui.setVisible(true);
+        this.listaInqui = winInqui.getListaInqui();
+    }//GEN-LAST:event_btnInquilinosActionPerformed
 
     /**
      * @param args the command line arguments

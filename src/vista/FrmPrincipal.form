@@ -104,6 +104,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Inquilinos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInquilinosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAlquileres">
       <Properties>
