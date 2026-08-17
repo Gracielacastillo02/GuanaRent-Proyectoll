@@ -7,26 +7,27 @@ package vista;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Propietario;
+//import javax.swing.table.DefaultTableModel;
+import modelo.Inquilino;
 
 /**
  *
  * @author graci
  */
-public class DlgMainPropietarios extends javax.swing.JDialog {
+public class DlgMainInquilinos extends javax.swing.JDialog {
 
-    private ArrayList<Propietario> listaProp;
+    private ArrayList<Inquilino> listaInqui;
     private DefaultTableModel model;
     
-    public DlgMainPropietarios(java.awt.Frame parent, boolean modal) {
+    public DlgMainInquilinos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
     
-    public DlgMainPropietarios(java.awt.Frame parent, boolean modal, ArrayList<Propietario> listaProp) {
+    public DlgMainInquilinos(java.awt.Frame parent, boolean modal, ArrayList<Inquilino> listaInqui) {
         super(parent, modal);
         initComponents();
-        this.listaProp = listaProp;
+        this.listaInqui = listaInqui;
         mostrarDatos();
         txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
@@ -34,50 +35,54 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }});
     }
     
-    public ArrayList<Propietario> getListaProp() {
-    return listaProp;
+    public ArrayList<Inquilino> getListaInqui() {
+    return listaInqui;
     }
     
-    public void mostrarDatos(){
-        String[] columnas = {"Cédula", "Nombre", "Género", "Teléfono", "Email"};
-        model = new DefaultTableModel(null, columnas);
-        tblPropietarios.setModel(model);
-        
-        for (Propietario p : listaProp){
-            Object[] fila = {
-                p.getCedPropiet(),
-                p.getNomPropiet(),
-                p.getGenero(),
-                p.getDireccion(),
-                p.getTelefono(),
-                p.getEmail()
-            };
-            model.addRow(fila);
-        }
+    public void mostrarDatos() {
+    String[] columnas = {"Cédula", "Nombre", "Género", "Fecha Nac.", "Dirección", "Teléfono", "Email", "Ocupación"};
+    model = new DefaultTableModel(null, columnas);
+    tblInquilinos.setModel(model);
+
+    for (Inquilino i : listaInqui) {
+        Object[] fila = {
+            i.getCedInqui(),
+            i.getNomInqui(),
+            i.getGenero(),
+            i.getFechNac(),
+            i.getDireccion(),
+            i.getTelefono(),
+            i.getEmail(),
+            i.getOcupacion()
+        };
+        model.addRow(fila);
     }
+}
     
     private void filtrar() {
     String texto = txtBuscar.getText().trim().toLowerCase();
     
-    model = new DefaultTableModel(null, new String[]{"Cédula", "Nombre", "Género", "Dirección", "Teléfono", "Email"});
-    tblPropietarios.setModel(model);
+    model = new DefaultTableModel(null, new String[]{"Cédula", "Nombre", "Género", "Fecha Nac.", "Dirección", "Teléfono", "Email", "Ocupación"});
+    tblInquilinos.setModel(model);
     
-    for (Propietario p : listaProp) {
-        boolean coincideCedula = String.valueOf(p.getCedPropiet()).contains(texto);
-        boolean coincideNombre = p.getNomPropiet().toLowerCase().contains(texto);
-        
-        if (texto.isEmpty() || coincideCedula || coincideNombre) {
-            Object[] fila = {
-                p.getCedPropiet(),
-                p.getNomPropiet(),
-                p.getGenero(),
-                p.getDireccion(),
-                p.getTelefono(),
-                p.getEmail()
-            };
-            model.addRow(fila);
+    for (Inquilino i : listaInqui) {
+            boolean coincideCedula = String.valueOf(i.getCedInqui()).contains(texto);
+            boolean coincideNombre = i.getNomInqui().toLowerCase().contains(texto);
+
+            if (texto.isEmpty() || coincideCedula || coincideNombre) {
+                Object[] fila = {
+                    i.getCedInqui(),
+                    i.getNomInqui(),
+                    i.getGenero(),
+                    i.getFechNac(),
+                    i.getDireccion(),
+                    i.getTelefono(),
+                    i.getEmail(),
+                    i.getOcupacion()
+                };
+                model.addRow(fila);
+            }
         }
-    }
 }
 
     /**
@@ -90,7 +95,7 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPropietarios = new javax.swing.JTable();
+        tblInquilinos = new javax.swing.JTable();
         btnInsertar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -99,7 +104,7 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tblPropietarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblInquilinos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -110,7 +115,7 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblPropietarios);
+        jScrollPane1.setViewportView(tblInquilinos);
 
         btnInsertar.setText("Insertar");
         btnInsertar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,36 +185,36 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        DlgNewPropietario dlg = new DlgNewPropietario(null, true, listaProp, 1);
+        DlgNewInquilino dlg = new DlgNewInquilino(null, true, listaInqui, 1);
         dlg.setVisible(true);
-        mostrarDatos(); //refresca la tabla con el nuevo propietario
+        mostrarDatos(); //refresca la tabla con el nuevo inquilino
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int fila = tblPropietarios.getSelectedRow();
+        int fila = tblInquilinos.getSelectedRow();
         if (fila == -1){
-            JOptionPane.showMessageDialog(this, "Seleccione un propietario de la tabla");
+            JOptionPane.showMessageDialog(this, "Seleccione un inquilino de la tabla");
             return;
         }
-        Propietario p = listaProp.get(fila);
-        DlgNewPropietario dlg = new DlgNewPropietario(null, true, listaProp, 2, p, fila);
+        Inquilino i = listaInqui.get(fila);
+        DlgNewInquilino dlg = new DlgNewInquilino(null, true, listaInqui, 2, i, fila);
         dlg.setVisible(true);
         mostrarDatos();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int fila = tblPropietarios.getSelectedRow();
+        int fila = tblInquilinos.getSelectedRow();
     if (fila == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione un propietario de la tabla");
+        JOptionPane.showMessageDialog(this, "Seleccione un inquilino de la tabla");
         return;
     }
     int confirmacion = JOptionPane.showConfirmDialog(this,
-            "¿Está segura de eliminar este propietario?",
+            "¿Está segura de eliminar este inquilino?",
             "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
     if (confirmacion == JOptionPane.YES_OPTION) {
-        listaProp.remove(fila);
+        listaInqui.remove(fila);
         mostrarDatos();
-        JOptionPane.showMessageDialog(this, "Propietario eliminado");
+        JOptionPane.showMessageDialog(this, "Inquilino eliminado");
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -230,20 +235,21 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgMainPropietarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgMainInquilinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgMainPropietarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgMainInquilinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgMainPropietarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgMainInquilinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgMainPropietarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgMainInquilinos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DlgMainPropietarios dialog = new DlgMainPropietarios(new javax.swing.JFrame(), true);
+                DlgMainInquilinos dialog = new DlgMainInquilinos(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -261,7 +267,7 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblPropietarios;
+    private javax.swing.JTable tblInquilinos;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
