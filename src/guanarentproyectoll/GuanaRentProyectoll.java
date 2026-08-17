@@ -4,6 +4,8 @@
  */
 package guanarentproyectoll;
 
+import vista.FrmPrincipal;
+
 /**
  *
  * @author graci
@@ -14,7 +16,8 @@ public class GuanaRentProyectoll {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        FrmPrincipal principal = new FrmPrincipal();
+        principal.setVisible(true);
     }
     
 }
