@@ -68,12 +68,12 @@ public class DlgNewPropietario extends javax.swing.JDialog {
             && !txtEmail.getText().isEmpty()) {
 
         try {
-            int cedulaIngresada = Integer.parseInt(txtCedula.getText());
+            String cedulaIngresada = txtCedula.getText();
 
             // Validar cédula duplicada solo al agregar
             if (operacion == 1) {
                 for (Propietario existente : listaProp) {
-                    if (existente.getCedPropiet() == cedulaIngresada) {
+                    if (existente.getCedPropiet().equals(cedulaIngresada)) {
                         JOptionPane.showMessageDialog(this,
                                 "Ya existe un propietario con esa cédula");
                         return null;
