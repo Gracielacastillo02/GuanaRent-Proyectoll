@@ -7,6 +7,7 @@ package vista;
 import java.util.ArrayList;
 import modelo.Inquilino;
 import modelo.Propietario;
+import modelo.Vivienda;
 
 /**
  *
@@ -16,6 +17,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     ArrayList<Propietario> listaProp = new ArrayList<>();
     ArrayList<Inquilino> listaInqui = new ArrayList<>();
+    ArrayList<Vivienda> listaVivienda = new ArrayList<>();
     public FrmPrincipal() {
         initComponents();
     }
@@ -51,6 +53,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnViviendas.setText("Viviendas");
+        btnViviendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViviendasActionPerformed(evt);
+            }
+        });
 
         btnInquilinos.setText("Inquilinos");
         btnInquilinos.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +136,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         winInqui.setVisible(true);
         this.listaInqui = winInqui.getListaInqui();
     }//GEN-LAST:event_btnInquilinosActionPerformed
+
+    private void btnViviendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendasActionPerformed
+        DlgMainViviendas winVivienda = new DlgMainViviendas(this, true, listaVivienda, listaProp);
+        winVivienda.setVisible(true);
+        this.listaVivienda = winVivienda.getListaVivienda();
+    }//GEN-LAST:event_btnViviendasActionPerformed
 
     /**
      * @param args the command line arguments
