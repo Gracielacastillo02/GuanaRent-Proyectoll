@@ -10,12 +10,22 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Propietario;
 
 /**
- *
+ * Ventana principal para gestionar los propietarios registrados en el
+ * sistema. Muestra la lista de propietarios en una tabla, permite
+ * buscarlos en tiempo real, y da acceso a insertar, editar o eliminar
+ * registros.
+ * 
  * @author graci
  */
 public class DlgMainPropietarios extends javax.swing.JDialog {
 
+    /**
+     * Lista de propietarios mostrada y modificada en esta ventana.
+     */
     private ArrayList<Propietario> listaProp;
+    /**
+     * Modelo de la tabla de propietarios.
+     */
     private DefaultTableModel model;
     
     public DlgMainPropietarios(java.awt.Frame parent, boolean modal) {
@@ -23,6 +33,14 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
         initComponents();
     }
     
+    /**
+     * Crea la ventana principal de propietarios, cargando los datos
+     * existentes y activando la búsqueda en tiempo real sobre la tabla.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaProp lista de propietarios a mostrar y modificar
+     */
     public DlgMainPropietarios(java.awt.Frame parent, boolean modal, ArrayList<Propietario> listaProp) {
         super(parent, modal);
         initComponents();
@@ -34,10 +52,18 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }});
     }
     
+    /**
+     * Obtiene la lista de propietarios, ya actualizada tras cualquier cambio.
+     *
+     * @return la lista de propietarios
+     */
     public ArrayList<Propietario> getListaProp() {
     return listaProp;
     }
     
+    /**
+     * Carga la tabla con todos los propietarios de la lista.
+     */
     public void mostrarDatos(){
         String[] columnas = {"Cédula", "Nombre", "Género", "Teléfono", "Email"};
         model = new DefaultTableModel(null, columnas);
@@ -56,6 +82,10 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * Filtra la tabla según el texto escrito en txtBuscar, comparando
+     * contra la cédula y el nombre del propietario.
+     */
     private void filtrar() {
     String texto = txtBuscar.getText().trim().toLowerCase();
     
@@ -179,12 +209,23 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre DlgNewPropietario en modo Agregar y refresca la tabla al cerrar.
+     *
+     * @param evt evento de clic sobre el botón Insertar
+     */
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         DlgNewPropietario dlg = new DlgNewPropietario(null, true, listaProp, 1);
         dlg.setVisible(true);
         mostrarDatos(); //refresca la tabla con el nuevo propietario
     }//GEN-LAST:event_btnInsertarActionPerformed
 
+    /**
+     * Abre DlgNewPropietario en modo Editar con el propietario seleccionado
+     * en la tabla.
+     *
+     * @param evt evento de clic sobre el botón Editar
+     */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int fila = tblPropietarios.getSelectedRow();
         if (fila == -1){
@@ -197,6 +238,12 @@ public class DlgMainPropietarios extends javax.swing.JDialog {
         mostrarDatos();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    /**
+     * Elimina el propietario seleccionado en la tabla, previa confirmación
+     * del usuario.
+     *
+     * @param evt evento de clic sobre el botón Eliminar
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tblPropietarios.getSelectedRow();
     if (fila == -1) {

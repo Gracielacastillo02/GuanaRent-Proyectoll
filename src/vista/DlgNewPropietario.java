@@ -11,14 +11,32 @@ import javax.swing.text.MaskFormatter;
 import modelo.Propietario;
 
 /**
- *
+ *Diálogo para agregar o editar un propietario. Valida los datos
+ * ingresados, verifica que la cédula no esté duplicada al agregar,
+ * y aplica una máscara al campo de teléfono.
+ * 
  * @author graci
  */
 public class DlgNewPropietario extends javax.swing.JDialog {
 
+    /**
+     * Lista de propietarios donde se agrega o actualiza el registro.
+     */
     private ArrayList<Propietario> listaProp;
+    
+    /**
+     * Indica la operación a realizar: 1 = Agregar, 2 = Editar.
+     */
     private int operacion; //1=Agregar, 2= Editar
+    
+    /**
+     * Posición en la lista del propietario que se está editando.
+     */
     private int index;
+    
+    /**
+     * Propietario que se está editando (solo se usa en el modo Editar).
+     */
     private Propietario prop;
     
     public DlgNewPropietario(java.awt.Frame parent, boolean modal) {
@@ -27,6 +45,14 @@ public class DlgNewPropietario extends javax.swing.JDialog {
         configurarMascaraTelefono();
     }
     
+    /**
+     * Crea el diálogo en modo Agregar.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaProp lista donde se agregará el nuevo propietario
+     * @param operacion 1 para agregar
+     */
     public DlgNewPropietario(java.awt.Frame parent, boolean modal, ArrayList<Propietario> listaProp, int operacion) {
         super(parent, modal);
         initComponents();
@@ -34,6 +60,17 @@ public class DlgNewPropietario extends javax.swing.JDialog {
         this.listaProp = listaProp;
         this.operacion = operacion;
     }
+    
+    /**
+     * Crea el diálogo en modo Editar, con los campos ya llenos.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaProp lista donde se actualizará el propietario
+     * @param operacion 2 para editar
+     * @param prop propietario a editar
+     * @param index posición del propietario en la lista
+     */
     public DlgNewPropietario(java.awt.Frame parent, boolean modal, ArrayList<Propietario> listaProp, int operacion, Propietario prop, int index) {
         super(parent, modal);
         initComponents();
@@ -44,10 +81,19 @@ public class DlgNewPropietario extends javax.swing.JDialog {
         this.prop = prop;
     }
     
+    /**
+     * Obtiene la lista de propietarios, ya actualizada tras guardar.
+     *
+     * @return la lista de propietarios
+     */
     public ArrayList<Propietario> getListaProp(){
         return listaProp;
     }
     
+     /**
+     * Configura la máscara de formato "####-####" en el campo de teléfono,
+     * usando '_' como carácter de relleno mientras el usuario escribe.
+     */
     private void configurarMascaraTelefono(){
         try{
             MaskFormatter mask = new MaskFormatter("####-####");
@@ -58,6 +104,14 @@ public class DlgNewPropietario extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * Valida los campos del formulario y construye el propietario a
+     * guardar. En modo Agregar, verifica además que no exista ya un
+     * propietario con la misma cédula. Muestra un mensaje si hay campos
+     * vacíos o la cédula está duplicada.
+     *
+     * @return el propietario construido, o null si la validación falla
+     */
     private Propietario getPropietario(){
         Propietario p = new Propietario();
          if (!txtCedula.getText().isEmpty()
@@ -227,6 +281,13 @@ public class DlgNewPropietario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Guarda el propietario del formulario. Si la operación es agregar, lo
+     * añade a la lista, si es editar, reemplaza el propietario en su
+     * posición original.
+     *
+     * @param evt evento de clic sobre el botón Guardar
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Propietario p = getPropietario();
         if (p !=null){
