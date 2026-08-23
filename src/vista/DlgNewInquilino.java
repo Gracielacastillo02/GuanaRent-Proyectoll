@@ -13,14 +13,32 @@ import modelo.Inquilino;
 import java.util.Date;
 
 /**
- *
+ * Diálogo para agregar o editar un inquilino. Valida los datos ingresados,
+ * verifica que la cédula no esté duplicada al agregar, y aplica una
+ * máscara al campo de teléfono.
+ * 
  * @author graci
  */
 public class DlgNewInquilino extends javax.swing.JDialog {
 
+    /**
+     * Lista de inquilinos donde se agrega o actualiza el registro.
+     */
     private ArrayList<Inquilino> listaInqui;
+    
+    /**
+     * Indica la operación a realizar: 1 = Agregar, 2 = Editar.
+     */
     private int operacion;  // 1 = Agregar, 2 = Editar
+    
+    /**
+     * Posición en la lista del inquilino que se está editando.
+     */
     private int index;
+    
+    /**
+     * Inquilino que se está editando (solo se usa en el modo Editar).
+     */
     private Inquilino inqui;
     
     public DlgNewInquilino(java.awt.Frame parent, boolean modal) {
@@ -29,6 +47,14 @@ public class DlgNewInquilino extends javax.swing.JDialog {
         configurarMascaraTelefono();
     }
     
+    /**
+     * Crea el diálogo en modo Agregar.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaInqui lista donde se agregará el nuevo inquilino
+     * @param operacion 1 para agregar
+     */
     public DlgNewInquilino(java.awt.Frame parent, boolean modal, ArrayList<Inquilino> listaInqui, int operacion) {
         super(parent, modal);
         initComponents();
@@ -36,6 +62,17 @@ public class DlgNewInquilino extends javax.swing.JDialog {
         this.listaInqui = listaInqui;
         this.operacion = operacion;
     }
+    
+    /**
+     * Crea el diálogo en modo Editar, con los campos ya llenos.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaInqui lista donde se actualizará el inquilino
+     * @param operacion 2 para editar
+     * @param inqui inquilino a editar
+     * @param index posición del inquilino en la lista
+     */
     public DlgNewInquilino(java.awt.Frame parent, boolean modal, ArrayList<Inquilino> listaInqui, int operacion, Inquilino inqui, int index) {
         super(parent, modal);
         initComponents();
@@ -46,10 +83,19 @@ public class DlgNewInquilino extends javax.swing.JDialog {
         this.inqui = inqui;
     }
     
+    /**
+     * Obtiene la lista de inquilinos, ya actualizada tras guardar.
+     *
+     * @return la lista de inquilinos
+     */
     public ArrayList<Inquilino> getListaInqui(){
         return listaInqui;
     }
     
+    /**
+     * Configura la máscara de formato "####-####" en el campo de teléfono,
+     * usando '_' como carácter de relleno mientras el usuario escribe.
+     */
     private void configurarMascaraTelefono(){
         try{
             MaskFormatter mask = new MaskFormatter("####-####");
@@ -60,6 +106,14 @@ public class DlgNewInquilino extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * Valida los campos del formulario y construye el inquilino a guardar.
+     * En modo Agregar, verifica además que no exista ya un inquilino con
+     * la misma cédula. Muestra un mensaje si hay campos vacíos, la fecha
+     * de nacimiento no fue seleccionada, o la cédula está duplicada.
+     *
+     * @return el inquilino construido, o null si la validación falla
+     */
     private Inquilino getInquilino(){
         Inquilino i = new Inquilino();
          if (!txtCedula.getText().isEmpty()
@@ -260,6 +314,13 @@ public class DlgNewInquilino extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Guarda el inquilino del formulario. Si la operación es agregar, lo
+     * añade a la lista, si es editar, reemplaza el inquilino en su
+     * posición original.
+     *
+     * @param evt evento de clic sobre el botón Guardar
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Inquilino i = getInquilino();
         if (i != null) {

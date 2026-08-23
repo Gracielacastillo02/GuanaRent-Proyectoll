@@ -11,12 +11,22 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Inquilino;
 
 /**
- *
+ * Ventana principal para gestionar los inquilinos registrados en el sistema.
+ * Muestra la lista de inquilinos en una tabla, permite buscarlos en tiempo
+ * real, y da acceso a insertar, editar o eliminar registros.
+ * 
  * @author graci
  */
 public class DlgMainInquilinos extends javax.swing.JDialog {
 
+    /**
+     * Lista de inquilinos mostrada y modificada en esta ventana.
+     */
     private ArrayList<Inquilino> listaInqui;
+    
+    /**
+     * Modelo de la tabla de inquilinos.
+     */
     private DefaultTableModel model;
     
     public DlgMainInquilinos(java.awt.Frame parent, boolean modal) {
@@ -24,6 +34,14 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         initComponents();
     }
     
+    /**
+     * Crea la ventana principal de inquilinos, cargando los datos existentes
+     * y activando la búsqueda en tiempo real sobre la tabla.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaInqui lista de inquilinos a mostrar y modificar
+     */
     public DlgMainInquilinos(java.awt.Frame parent, boolean modal, ArrayList<Inquilino> listaInqui) {
         super(parent, modal);
         initComponents();
@@ -35,10 +53,18 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }});
     }
     
+    /**
+     * Obtiene la lista de inquilinos, ya actualizada tras cualquier cambio.
+     *
+     * @return la lista de inquilinos
+     */
     public ArrayList<Inquilino> getListaInqui() {
     return listaInqui;
     }
     
+    /**
+     * Carga la tabla con todos los inquilinos de la lista.
+     */
     public void mostrarDatos() {
     String[] columnas = {"Cédula", "Nombre", "Género", "Fecha Nac.", "Dirección", "Teléfono", "Email", "Ocupación"};
     model = new DefaultTableModel(null, columnas);
@@ -58,7 +84,10 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         model.addRow(fila);
     }
 }
-    
+    /**
+     * Filtra la tabla según el texto escrito en txtBuscar, comparando
+     * contra la cédula y el nombre del inquilino.
+     */
     private void filtrar() {
     String texto = txtBuscar.getText().trim().toLowerCase();
     
@@ -184,12 +213,23 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre DlgNewInquilino en modo Agregar y refresca la tabla al cerrar.
+     *
+     * @param evt evento de clic sobre el botón Insertar
+     */
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         DlgNewInquilino dlg = new DlgNewInquilino(null, true, listaInqui, 1);
         dlg.setVisible(true);
         mostrarDatos(); //refresca la tabla con el nuevo inquilino
     }//GEN-LAST:event_btnInsertarActionPerformed
 
+    /**
+     * Abre DlgNewInquilino en modo Editar con el inquilino seleccionado
+     * en la tabla.
+     *
+     * @param evt evento de clic sobre el botón Editar
+     */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int fila = tblInquilinos.getSelectedRow();
         if (fila == -1){
@@ -202,6 +242,12 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         mostrarDatos();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    /**
+     * Elimina el inquilino seleccionado en la tabla, previa confirmación
+     * del usuario.
+     *
+     * @param evt evento de clic sobre el botón Eliminar
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tblInquilinos.getSelectedRow();
     if (fila == -1) {

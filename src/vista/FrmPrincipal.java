@@ -7,15 +7,29 @@ package vista;
 import java.util.ArrayList;
 import modelo.Inquilino;
 import modelo.Propietario;
+import modelo.Vivienda;
 
 /**
- *
+ * Ventana principal del sistema de alquileres GuanaRent. Desde aquí se
+ * accede a la gestión de propietarios e inquilinos y se
+ * mantienen las listas compartidas entre las distintas ventanas del
+ * sistema.
+ * 
  * @author graci
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    /**
+     * Lista de propietarios registrados en el sistema.
+     */
     ArrayList<Propietario> listaProp = new ArrayList<>();
+    
+    /**
+     * Lista de inquilinos registrados en el sistema.
+     */
     ArrayList<Inquilino> listaInqui = new ArrayList<>();
+    
+    ArrayList<Vivienda> listaVivienda = new ArrayList<>();
     public FrmPrincipal() {
         initComponents();
     }
@@ -51,6 +65,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnViviendas.setText("Viviendas");
+        btnViviendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViviendasActionPerformed(evt);
+            }
+        });
 
         btnInquilinos.setText("Inquilinos");
         btnInquilinos.addActionListener(new java.awt.event.ActionListener() {
@@ -118,17 +137,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre DlgMainPropietarios y refresca la lista de propietarios con
+     * los cambios realizados en esa ventana.
+     *
+     * @param evt evento de clic sobre el botón Propietarios
+     */
     private void btnPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropietariosActionPerformed
         DlgMainPropietarios winProp = new DlgMainPropietarios(this, true, listaProp);
         winProp.setVisible(true);
         this.listaProp = winProp.getListaProp();
     }//GEN-LAST:event_btnPropietariosActionPerformed
 
+    /**
+     * Abre DlgMainInquilinos y refresca la lista de inquilinos con
+     * los cambios realizados en esa ventana.
+     *
+     * @param evt evento de clic sobre el botón Inquilinos
+     */
     private void btnInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinosActionPerformed
         DlgMainInquilinos winInqui = new DlgMainInquilinos(this, true, listaInqui);
         winInqui.setVisible(true);
         this.listaInqui = winInqui.getListaInqui();
     }//GEN-LAST:event_btnInquilinosActionPerformed
+
+    private void btnViviendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendasActionPerformed
+        DlgMainViviendas winVivienda = new DlgMainViviendas(this, true, listaVivienda, listaProp);
+        winVivienda.setVisible(true);
+        this.listaVivienda = winVivienda.getListaVivienda();
+    }//GEN-LAST:event_btnViviendasActionPerformed
 
     /**
      * @param args the command line arguments
