@@ -70,11 +70,11 @@ public class DlgNewInquilino extends javax.swing.JDialog {
             && !txtEmail.getText().isEmpty()) {
 
         try {
-            int cedulaIngresada = Integer.parseInt(txtCedula.getText());
+            String cedulaIngresada = txtCedula.getText();
 
             if (operacion == 1) {
                 for (Inquilino existente : listaInqui) {
-                    if (existente.getCedInqui() == cedulaIngresada) {
+                    if (existente.getCedInqui().equals(cedulaIngresada)) {
                         JOptionPane.showMessageDialog(this,
                                 "Ya existe un inquilino con esa cédula");
                         return null;
