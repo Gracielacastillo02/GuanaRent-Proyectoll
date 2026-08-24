@@ -175,22 +175,45 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.listaInqui = winInqui.getListaInqui();
     }//GEN-LAST:event_btnInquilinosActionPerformed
 
+    /**
+     * Abre DlgMainViviendas y refresca la lista de viviendas con los
+     * cambios realizados en esa ventana.
+     * @param evt evento de clic sobre el botón Viviendas 
+     */
     private void btnViviendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendasActionPerformed
         DlgMainViviendas winVivienda = new DlgMainViviendas(this, true, listaVivienda, listaProp);
         winVivienda.setVisible(true);
         this.listaVivienda = winVivienda.getListaVivienda();
     }//GEN-LAST:event_btnViviendasActionPerformed
 
+    /**
+     * Abre DlgMensualidades, donde se pueden generar y consultar las
+     * mensualidades de los alquileres vigentes.
+     *
+     * @param evt evento de clic sobre el botón Mensualidades
+     */
     private void btnMensualidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMensualidadesActionPerformed
         DlgMensualidades winMensualidades = new DlgMensualidades(this, true, listaAlquileres, listaInqui, listaMensualidades);
         winMensualidades.setVisible(true);
     }//GEN-LAST:event_btnMensualidadesActionPerformed
 
+    /**
+     * Abre DlgGanancias, donde se muestran los cálculos de ganancias de
+     * la empresa a partir de los alquileres y mensualidades registrados.
+     * 
+     * @param evt evento de clic sobre el botón Ganancias
+     */
     private void btnGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGananciasActionPerformed
         DlgGanancias winGanancias = new DlgGanancias(this, true, listaAlquileres, listaMensualidades);
         winGanancias.setVisible(true);
     }//GEN-LAST:event_btnGananciasActionPerformed
 
+    /**
+     * Abre DlgMainAlquileres, donde se gestionan los contratos de
+     * alquiler entre inquilinos y viviendas.
+     *
+     * @param evt evento de clic sobre el botón Alquileres
+     */
     private void btnAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquileresActionPerformed
         DlgMainAlquileres winAlquileres = new DlgMainAlquileres(this, true, listaAlquileres, listaInqui, listaVivienda);
         winAlquileres.setVisible(true);
