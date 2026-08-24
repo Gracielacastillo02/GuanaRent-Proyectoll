@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import modelo.Inquilino;
 import modelo.Propietario;
 import modelo.Vivienda;
-
+import modelo.Alquileres;
+import modelo.Mensualidades;
 /**
  * Ventana principal del sistema de alquileres GuanaRent. Desde aquí se
  * accede a la gestión de propietarios e inquilinos y se
@@ -30,6 +31,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     ArrayList<Inquilino> listaInqui = new ArrayList<>();
     
     ArrayList<Vivienda> listaVivienda = new ArrayList<>();
+    ArrayList<Alquileres> listaAlquileres = new ArrayList<>();
+    ArrayList<Mensualidades> listaMensualidades = new ArrayList<>();
+    
     public FrmPrincipal() {
         initComponents();
     }
@@ -81,8 +85,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnAlquileres.setText("Alquileres");
 
         btnMensualidades.setText("Mensualidades");
+        btnMensualidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMensualidadesActionPerformed(evt);
+            }
+        });
 
         btnGanancias.setText("Ganancias");
+        btnGanancias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGananciasActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/rotulo.jpeg"))); // NOI18N
 
@@ -117,7 +131,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnPropietarios)
@@ -130,8 +144,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(btnMensualidades)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnGanancias)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnGanancias)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -167,16 +182,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.listaVivienda = winVivienda.getListaVivienda();
     }//GEN-LAST:event_btnViviendasActionPerformed
 
+    private void btnMensualidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMensualidadesActionPerformed
+        DlgMensualidades winMensualidades = new DlgMensualidades(this, true, listaAlquileres, listaInqui, listaMensualidades);
+        winMensualidades.setVisible(true);
+    }//GEN-LAST:event_btnMensualidadesActionPerformed
+
+    private void btnGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGananciasActionPerformed
+        DlgGanancias winGanancias = new DlgGanancias(this, true, listaAlquileres, listaMensualidades);
+        winGanancias.setVisible(true);
+    }//GEN-LAST:event_btnGananciasActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
+       try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -192,9 +212,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmPrincipal().setVisible(true);
