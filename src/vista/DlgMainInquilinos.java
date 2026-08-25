@@ -11,12 +11,22 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Inquilino;
 
 /**
- *
+ * Ventana principal para gestionar los inquilinos registrados en el sistema.
+ * Muestra la lista de inquilinos en una tabla, permite buscarlos en tiempo
+ * real, y da acceso a insertar, editar o eliminar registros.
+ * 
  * @author graci
  */
 public class DlgMainInquilinos extends javax.swing.JDialog {
 
+    /**
+     * Lista de inquilinos mostrada y modificada en esta ventana.
+     */
     private ArrayList<Inquilino> listaInqui;
+    
+    /**
+     * Modelo de la tabla de inquilinos.
+     */
     private DefaultTableModel model;
     
     public DlgMainInquilinos(java.awt.Frame parent, boolean modal) {
@@ -24,6 +34,14 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         initComponents();
     }
     
+    /**
+     * Crea la ventana principal de inquilinos, cargando los datos existentes
+     * y activando la búsqueda en tiempo real sobre la tabla.
+     *
+     * @param parent ventana padre
+     * @param modal si el diálogo es modal
+     * @param listaInqui lista de inquilinos a mostrar y modificar
+     */
     public DlgMainInquilinos(java.awt.Frame parent, boolean modal, ArrayList<Inquilino> listaInqui) {
         super(parent, modal);
         initComponents();
@@ -35,10 +53,18 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }});
     }
     
+    /**
+     * Obtiene la lista de inquilinos, ya actualizada tras cualquier cambio.
+     *
+     * @return la lista de inquilinos
+     */
     public ArrayList<Inquilino> getListaInqui() {
     return listaInqui;
     }
     
+    /**
+     * Carga la tabla con todos los inquilinos de la lista.
+     */
     public void mostrarDatos() {
     String[] columnas = {"Cédula", "Nombre", "Género", "Fecha Nac.", "Dirección", "Teléfono", "Email", "Ocupación"};
     model = new DefaultTableModel(null, columnas);
@@ -58,7 +84,10 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         model.addRow(fila);
     }
 }
-    
+    /**
+     * Filtra la tabla según el texto escrito en txtBuscar, comparando
+     * contra la cédula y el nombre del inquilino.
+     */
     private void filtrar() {
     String texto = txtBuscar.getText().trim().toLowerCase();
     
@@ -101,8 +130,10 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         btnEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
+        btnCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Inquilinos");
 
         tblInquilinos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,29 +171,36 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
 
         jLabel1.setText("Buscar:");
 
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(btnInsertar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
-                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnInsertar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCerrar)))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,19 +215,31 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInsertar)
                     .addComponent(btnEditar)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre DlgNewInquilino en modo Agregar y refresca la tabla al cerrar.
+     *
+     * @param evt evento de clic sobre el botón Insertar
+     */
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         DlgNewInquilino dlg = new DlgNewInquilino(null, true, listaInqui, 1);
         dlg.setVisible(true);
         mostrarDatos(); //refresca la tabla con el nuevo inquilino
     }//GEN-LAST:event_btnInsertarActionPerformed
 
+    /**
+     * Abre DlgNewInquilino en modo Editar con el inquilino seleccionado
+     * en la tabla.
+     *
+     * @param evt evento de clic sobre el botón Editar
+     */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int fila = tblInquilinos.getSelectedRow();
         if (fila == -1){
@@ -202,6 +252,12 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         mostrarDatos();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    /**
+     * Elimina el inquilino seleccionado en la tabla, previa confirmación
+     * del usuario.
+     *
+     * @param evt evento de clic sobre el botón Eliminar
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tblInquilinos.getSelectedRow();
     if (fila == -1) {
@@ -217,6 +273,10 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Inquilino eliminado");
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,6 +322,7 @@ public class DlgMainInquilinos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
