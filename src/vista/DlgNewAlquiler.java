@@ -5,8 +5,7 @@
 package vista;
 
 /**
- * Diálogo para registrar un nuevo alquiler o editar uno existente. 
- * Se usa tanto desde el botón "Nuevo" como desde el botón "Editar" de DlgMainAlquileres, dependiendo de qué constructor se llame.
+ * Diálogo para registrar un nuevo alquiler o editar uno existente. Se usa tanto desde el botón "Nuevo" como desde el botón "Editar" de DlgMainAlquileres, dependiendo de qué constructor se llame.
  *
  * @author Erick
  */
@@ -61,8 +60,7 @@ public class DlgNewAlquiler extends javax.swing.JDialog {
     }
 
     /**
-     * Llena los combos de Inquilino y Vivienda con los datos de las listas recibidas por el diálogo.
-     * Se ejecuta una sola vez, al crear la ventana.
+     * Llena los combos de Inquilino y Vivienda con los datos de las listas recibidas por el diálogo. Se ejecuta una sola vez, al crear la ventana.
      */
     private void cargarCombos() {
         cbInquilino.removeAllItems();
@@ -99,8 +97,7 @@ public class DlgNewAlquiler extends javax.swing.JDialog {
     }
 
     /**
-     * Carga en el formulario los datos del alquiler que se va a editar (fecha, montos, cantidades, estado) 
-     * y selecciona en los combos el inquilino y la vivienda correspondientes.
+     * Carga en el formulario los datos del alquiler que se va a editar (fecha, montos, cantidades, estado) y selecciona en los combos el inquilino y la vivienda correspondientes.
      */
     private void cargarDatosParaEditar() {
         setTitle("Editar Alquiler");
@@ -303,9 +300,7 @@ public class DlgNewAlquiler extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Valida y guarda los datos del formulario. 
-     * Si el diálogo está en modo "nuevo", crea un objeto modelo.Alquileres y lo agrega a la lista. 
-     * Si está en modo "editar", actualiza el objeto que ya existe en la lista con los datos nuevos.
+     * Valida y guarda los datos del formulario. Si el diálogo está en modo "nuevo", crea un objeto modelo.Alquileres y lo agrega a la lista. Si está en modo "editar", actualiza el objeto que ya existe en la lista con los datos nuevos.
      *
      * @param evt evento de clic sobre el botón Guardar/Actualizar
      */
@@ -351,12 +346,12 @@ public class DlgNewAlquiler extends javax.swing.JDialog {
             } else {
                 // Modo "editar": actualizar el objeto existente
                 alquilerEditar.setFechaContrato(fecha);
-                alquilerEditar.setCantMeses((int) spCantMeses.getValue());
-                alquilerEditar.setNumAdultos((int) spNumAdultos.getValue());
-                alquilerEditar.setNumNinios((int) spNumNinios.getValue());
+                alquilerEditar.setCantMeses(((Number) spCantMeses.getValue()).intValue());
+                alquilerEditar.setNumAdultos(((Number) spNumAdultos.getValue()).intValue());
+                alquilerEditar.setNumNinios(((Number) spNumNinios.getValue()).intValue());
                 alquilerEditar.setDepositoGarantia(deposito);
                 alquilerEditar.setPrecioAlquiler(precio);
-                alquilerEditar.setPorcIncremAnual((int) jSpinner1.getValue());
+                alquilerEditar.setPorcIncremAnual(((Number) jSpinner1.getValue()).doubleValue());
                 alquilerEditar.setCedInquilino(Integer.parseInt(inquilinoSel.getCedInqui()));
                 alquilerEditar.setIdVivienda(viviendaSel.getIdVivienda());
                 alquilerEditar.setEstado((String) cbEstado.getSelectedItem());
@@ -389,8 +384,7 @@ public class DlgNewAlquiler extends javax.swing.JDialog {
     }
 
     /**
-     * Método de prueba para abrir este diálogo de forma independiente,
-     * sin pasar por el menú principal del sistema.
+     * Método de prueba para abrir este diálogo de forma independiente, sin pasar por el menú principal del sistema.
      *
      * @param args argumentos de línea de comandos (no se usan)
      */

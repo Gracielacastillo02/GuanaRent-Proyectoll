@@ -135,6 +135,7 @@ public class DlgNewVivienda extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agregar Viviendas");
 
         txtDireccion.addActionListener(this::txtDireccionActionPerformed);
 
@@ -153,6 +154,7 @@ public class DlgNewVivienda extends javax.swing.JDialog {
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         chkCochera.setText("Cochera");
 
@@ -337,7 +339,6 @@ public class DlgNewVivienda extends javax.swing.JDialog {
      */
     private Vivienda getVivienda() {
         Vivienda nuevaVivienda = new Vivienda();
-
         if (!txtDescripcion.getText().isEmpty()
                 && !txtDireccion.getText().isEmpty()
                 && !txtMtsConstruc.getText().isEmpty()
@@ -363,6 +364,9 @@ public class DlgNewVivienda extends javax.swing.JDialog {
                 nuevaVivienda.setPropietario((Propietario) cmbPropietario.getSelectedItem());
                 nuevaVivienda.setEstado(cmbEstado.getSelectedItem().toString());
 
+                if (operacion == 1) {
+                    nuevaVivienda.setIdVivienda(listaVivienda.size() + 1);
+                }
                 if (operacion == 2) {
                     nuevaVivienda.setIdVivienda(vivienda.getIdVivienda());
                 }
@@ -399,11 +403,10 @@ public class DlgNewVivienda extends javax.swing.JDialog {
     }//GEN-LAST:event_cmbPropietarioActionPerformed
 
     /**
-    * Guarda la vivienda del formulario. Si la operación es agregar, la añade
-    * a la lista, si es editar, reemplaza la vivienda en su posición original.
-    *
-    * @param evt evento de clic sobre el botón Guardar
-    */
+     * Guarda la vivienda del formulario. Si la operación es agregar, la añade a la lista, si es editar, reemplaza la vivienda en su posición original.
+     *
+     * @param evt evento de clic sobre el botón Guardar
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Vivienda nuevaVivienda = getVivienda();
         if (nuevaVivienda != null) {
@@ -417,6 +420,10 @@ public class DlgNewVivienda extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
